@@ -10,6 +10,8 @@ docker run -it --rm --entrypoint bash python:3.13
 pip --version
 ```
 
+
+
 ## Question 2.Understanding Docker networking and docker-compose
 Given the following docker-compose.yaml, what is the hostname and port that pgadmin should use to connect to the postgres database?
 
@@ -45,6 +47,8 @@ volumes:
     name: vol-pgadmin_data
 ```
 
+
+
 ## Question 3.Counting short trips
 For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2025-12-01', exclusive of the upper bound), how many trips had a trip_distance of less than or equal to 1 mile?
 
@@ -54,6 +58,8 @@ from public."green_tripdata_2025-11"
 where CAST(lpep_pickup_datetime AS date) between '2025-11-01' and '2025-11-30'
 	AND trip_distance <= 1;
 ```
+
+
 
 
 ## Question 4.  Longest trip for each day
@@ -69,6 +75,9 @@ where trip_distance = (
 );
 ```
 
+
+
+
 ## Question 5.Biggest pickup zone
 Which was the pickup zone with the largest total_amount (sum of all trips) on November 18th, 2025?
 
@@ -81,6 +90,8 @@ order by sum_total_amount desc
 limit 1;
 
 ```
+
+
 
 
 ## Question 6. Largest tip
@@ -96,3 +107,4 @@ group by zd."Zone"
 order by max_tip_amount desc
 limit 1;
 ```
+
