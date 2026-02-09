@@ -144,3 +144,70 @@ WHERE CONTAINS_SUBSTR(filename, '2021-03')
 
 
 
+-----
+## Module 3.DATA WAREHOUSING
+Data Loading (External Table & Table)
+```sql
+CREATE EXTERNAL TABLE `my-project123-486104.zoomcamp.ext`
+OPTIONS (
+  format = 'PARQUET',
+  uris = ['gs://dezoomcamp_hw3_2026_sh/*.parquet']
+);
+
+CREATE OR REPLACE TABLE `my-project123-486104.zoomcamp.int_table` AS
+SELECT *
+FROM `my-project123-486104.zoomcamp.ext`;
+```
+
+### Question 1. What is count of records for the 2024 Yellow Taxi Data? 
+```sql
+select count(1)
+from `my-project123-486104.zoomcamp.ext`
+```
+
+### Question 2. What is the estimated amount of data that will be read when this query is executed on the External Table and the Table?
+```sql
+select distinct PULocationID
+from `my-project123-486104.zoomcamp.ext`;
+
+select distinct PULocationID
+from `my-project123-486104.zoomcamp.int_table`;
+```
+
+### Question 3. Why are the estimated number of Bytes different? 
+```sql
+select PULocationID
+from `my-project123-486104.zoomcamp.int_table`;
+
+select PULocationID,DOLocationID
+from `my-project123-486104.zoomcamp.int_table`;
+```
+
+### Question 4. How many records have a fare_amount of 0?
+```sql
+select count(1)
+from `my-project123-486104.zoomcamp.ext`
+where fare_amount = 0;
+```
+
+### Question 6. Write a query to retrieve the distinct VendorIDs between tpep_dropoff_datetime 2024-03-01 and 2024-03-15 (inclusive). Use the materialized table you created earlier in your from clause and note the estimated bytes. Now change the table in the from clause to the partitioned table you created for question 5 and note the estimated bytes processed. What are these values?
+
+Create partitioned & clustered table 
+```sql
+CREATE OR REPLACE TABLE `my-project123-486104.zoomcamp.int_part_table`
+PARTITION BY DATE(tpep_dropoff_datetime)
+CLUSTER BY VendorID AS
+SELECT *
+FROM `my-project123-486104.zoomcamp.ext`;
+```
+
+Check the estimated bytes for each table.
+```sql
+select distinct VendorID
+from `my-project123-486104.zoomcamp.int_table`
+where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15';
+
+select distinct VendorID
+from `my-project123-486104.zoomcamp.int_part_table`
+where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15'
+```
