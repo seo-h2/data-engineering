@@ -8,3 +8,17 @@ sources:
     tables:
       - name: ext_yellow_tripdata
       - name: ext_green_tripdata
+
+models:
+  - name: stg_green_tripdata
+    description: Staged green taxi data
+    columns:
+      - name: tripid
+        description: Primary key for trips
+        tests:
+          - unique
+          - not_null
+      
+      - name: vendorid
+        tests:
+          - not_null

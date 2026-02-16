@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dim_zones
-    description: >
+    description:
       Zone lookup table containing LocationID, borough, zone name and service zone.
       One row per taxi zone in NYC.
     columns:
@@ -20,4 +20,12 @@ models:
       
       - name: service_zone
         description: Service zone type (Yellow, Green, or Airports)
-    
+        
+  - name: fct_trips
+    columns:
+      - name: payment_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
