@@ -17,7 +17,7 @@ RUN uv sync --locked
 
 # Copy application code
 #COPY ingest_data.py ingest_data.py
-COPY load_yellow_taxi_data.py load_yellow_taxi_data.py
+COPY load_fhv.py load_fhv.py
 
 # Set entry point
 #ENTRYPOINT ["python"] 
